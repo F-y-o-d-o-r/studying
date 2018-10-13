@@ -1,1 +1,1 @@
-now with reactr js
+Код с практик занятий
