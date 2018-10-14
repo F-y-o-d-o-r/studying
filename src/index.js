@@ -6,10 +6,7 @@ import './index.css';
 // import RenderProps from './RenderProps';
 // import HOCs from './HOCs';
 // import ContextApi from './ContextApi';
-// import PersistEvent from './PersistEvent';
+import PersistEvent from './PersistEvent';
 // import DerivedStateProblem from './DerivedStateProblem';
 
-ReactDOM.render(
-  // <PersistEvent />,
-  document.getElementById('root'),
-);
+ReactDOM.render(<PersistEvent />, document.getElementById('root'));
