@@ -29,7 +29,7 @@ export class LifeCycle extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.state.creditCardInput !== nextState.creditCardInput
+    return this.state.creditCardInput !== nextState.creditCardInput;
     // console.log('shouldComponentUpdate');
     // return true;
   }
@@ -61,7 +61,7 @@ export class LifeCycle extends Component {
 
   render() {
     const { creditCardInput } = this.state;
-
+    console.log(this.div);
     return <div ref={this.div}>{creditCardInput}</div>;
   }
 }
