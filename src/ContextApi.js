@@ -16,10 +16,8 @@ export class ContextApi extends Component {
   }
 
   handleToggleTheme = () => {
-    this.setState(state => {
-      return state.theme === 'light'
-        ? { theme: 'dark' }
-        : { theme: 'light' };
+    this.setState((state) => {
+      return state.theme === 'light' ? { theme: 'dark' } : { theme: 'light' };
     });
   };
 
@@ -28,7 +26,7 @@ export class ContextApi extends Component {
       <Provider
         value={{
           theme: this.state.theme,
-          onToggleTheme: this.handleToggleTheme,
+          onToggleTheme: this.handleToggleTheme
         }}
       >
         <IntermediateComponent>
@@ -52,13 +50,7 @@ const IntermediateComponent = ({ children }) => {
 function withTheme(WrappedComponent) {
   return class extends Component {
     render() {
-      return (
-        <Consumer>
-          {contextValues => (
-            <WrappedComponent {...this.props} {...contextValues} />
-          )}
-        </Consumer>
-      );
+      return <Consumer>{(contextValues) => <WrappedComponent {...this.props} {...contextValues} />}</Consumer>;
     }
   };
 }
@@ -67,7 +59,7 @@ const Button = ({ theme, onToggleTheme }) => (
   <button
     onClick={onToggleTheme}
     style={{
-      backgroundColor: theme === 'light' ? '#eee' : '#ccc',
+      backgroundColor: theme === 'light' ? '#eee' : '#ccc'
     }}
   >
     Кнопка с темой

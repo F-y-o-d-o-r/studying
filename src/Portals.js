@@ -3,28 +3,30 @@ import ReactDOM from 'react-dom';
 
 export class PortalExample extends Component {
   state = {
-    isShowModal: false,
+    isShowModal: false
   };
 
   toggleModal = () => {
-    this.setState(state => ({
-      isShowModal: !state.isShowModal,
+    this.setState((state) => ({
+      isShowModal: !state.isShowModal
     }));
   };
 
-  showEvent = event => {
+  showEvent = (event) => {
     console.log(event.nativeEvent);
+  };
+
+  tests = () => {
+    console.log('tests');
   };
 
   render() {
     const { isShowModal } = this.state;
     return (
-      <div onClick={this.showEvent}>
-        <button onClick={this.toggleModal}>
-          Открыть модальное окно
-        </button>
+      <div>
+        <button onClick={this.toggleModal}>Открыть модальное окно</button>
 
-        {isShowModal && <Modal />}
+        {isShowModal && <Modal tests={this.toggleModal} />}
       </div>
     );
   }
@@ -48,9 +50,9 @@ class Modal extends Component {
     return ReactDOM.createPortal(
       <Fragment>
         <p>Я модальное окно</p>
-        <button>Закрой меня</button>
+        <button onClick={this.props.tests}>Закрой меня</button>
       </Fragment>,
-      document.getElementById('portal'),
+      document.getElementById('portal')
     );
   }
 }
