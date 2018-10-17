@@ -11,15 +11,13 @@ export class ForwardedRefExample extends Component {
   }
 
   render() {
-    return (
-      <PureGreeting ref={this.greeting} name="Artem" />
-    );
+    return <PureGreeting ref={this.greeting} name="Artem" />;
   }
 }
 
 class Greeting extends Component {
   state = {
-    isUpper: false,
+    isUpper: false
   };
 
   toUpperCase = () => {
@@ -43,18 +41,11 @@ const PureGreeting = pure(Greeting);
 function pure(WrappedComponent) {
   class PuredComponent extends PureComponent {
     render() {
-      return (
-        <WrappedComponent
-          {...this.props}
-          ref={this.props.forwaredRef}
-        />
-      );
+      return <WrappedComponent {...this.props} ref={this.props.forwaredRef} />;
     }
   }
 
-  return React.forwardRef((props, ref) => (
-    <PuredComponent {...props} forwaredRef={ref} />
-  ));
+  return React.forwardRef((props, ref) => <PuredComponent {...props} forwaredRef={ref} />);
 }
 
 export default ForwardedRefExample;
