@@ -1,12 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import PropTypesExample from './PropTypesExample';
-// import Portals from './Portals';
-// import RenderProps from './RenderProps';
-// import HOCs from './HOCs';
-import ContextApi from './ContextApi';
-// import PersistEvent from './PersistEvent';
-// import DerivedStateProblem from './DerivedStateProblem';
+// import SimpleRouter from './SimpleRouter';
+// import SwitchRouter from './SwitchRouter';
+// import Nested from './Nested';
+import Private from './Private';
+// import ForwardedRef from './ForwardedRef';
+import { BrowserRouter } from 'react-router-dom';
 
-ReactDOM.render(<ContextApi />, document.getElementById('root'));
+ReactDOM.render(
+  <BrowserRouter>
+    <Private />
+  </BrowserRouter>,
+  // <BrowserRouter>
+  //   <ForwardedRef />
+  // </BrowserRouter>,
+  document.getElementById('root')
+);
