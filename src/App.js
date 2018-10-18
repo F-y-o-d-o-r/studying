@@ -1,52 +1,58 @@
-import React from 'react';
-import './App.css';
+import React, { PureComponent } from 'react';
 import {
-  addUser,
-  removeAllUsers,
-} from 'actionCreators/users';
+  getSeriesRequest,
+  getSeries,
+  isLoaded,
+  isError,
+  isLoading,
+} from './ducks/series';
 import { connect } from 'react-redux';
+import './App.css';
 
-const mapStateToProps = state => ({
-  users: state.users,
-});
 
-// const mapDispatchToProps = dispatch => ({
-//   addUser: (id, name) => dispatch(addUser(id, name)),
-//   removeAllUsers: () => dispatch(removeAllUsers()),
-// });
+class App extends PureComponent {
+  fetchData = () => {
+    this.props.getSeriesRequest(1);
+  };
 
-const mapDispatchToProps = {
-  addUser,
-  removeAllUsers,
-};
-
-let id = 0;
-
-addUser(1, 'test'); // { type: "ADD_USER", payload: {id:, name: 'test'}}
-
-class App extends React.PureComponent {
   render() {
-    const { users, addUser, removeAllUsers } = this.props;
-    console.log('render')
+    const { series, isError, isLoading, isLoaded } = this.props;
+
+    if (isLoading) {
+      return <p>Данные загружаются...</p>;
+    }
+
+    if (isError) {
+      return <p>Произошла сетевая ошибка</p>;
+    }
+
     return (
       <div>
-        <button
-          onClick={() => addUser(id++, `Alexander ${id}`)}
-        >
-          Добавить пользователя
-        </button>
-        <button onClick={removeAllUsers}>
-          Удалить всех
-        </button>
-        {users.map(user => (
-          <p key={user.id}>
-            {`User: ${user.name}, id: ${user.id}`}
-          </p>
-        ))}
+        <h1>Firefly</h1>
+        {isLoaded && <button onClick={this.fetchData}>Загрузить серии</button>}
+        {series.map(this.renderEpisode)}
       </div>
     );
   }
+
+  renderEpisode = ep => {
+    return (
+      <div key={ep.id}>
+        <img src={ep.image} alt={ep.name} />
+        <div dangerouslySetInnerHTML={{ __html: ep.summary }} />
+      </div>
+    );
+  };
 }
+
+const mapStateToProps = state => ({
+  isLoaded: isLoaded(state),
+  isError: isError(state),
+  isLoading: isLoading(state),
+  series: getSeries(state),
+});
+
+const mapDispatchToProps = { getSeriesRequest };
 
 export default connect(
   mapStateToProps,
